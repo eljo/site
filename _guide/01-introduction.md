@@ -17,9 +17,7 @@ The goal is simple: take any app, develop a change on your laptop, ship the chan
 
 The tools are common: your git repo, a text editor, config files, scripts, and cloud services.
 
-The real challenge is building a simple and consistent pipeline. One that's easy for your entire development team to understand and maintain. One that lets you focus 100% on your app features and quality, and not waste time setting up and debugging your laptop or cloud computing environments.
-
-Convox is such a system.
+The real challenge is building a simple and consistent pipeline that's easy for your entire development team to understand, use, and maintain: that's why we built Convox.
 
 The Convox CLI follows a philosophy of "Convention over Configuration" which leads to three **simple commands** to manage any app:
 
@@ -29,14 +27,12 @@ The Convox CLI follows a philosophy of "Convention over Configuration" which lea
 
 The Convox Platform follows a philosophy of "Integration Over Invention" which leads us to building the system on top of:
 
-* [Docker](https://docker.com)
+* [Docker](https://docker.com) and Docker Compose
 * [Amazon Web Services](https://aws.amazon.com/)
 
-Convox imposes carefully considered constraints on your application to give you a reliable development and deployment environment.
+Convox imposes carefully considered constraints on your application to give you a reliable development and deployment environment. This may require some changes around how you write and configure your apps.
 
-This will require some changes around how you write and configure your apps. You have to follow constraints and handle a bit more complexity in the application layer.
-
-But this isn't hard when armed with knowledge and good tooling as you write your app. Precisely what this guide offers!
+This guide serves as an outline to those constraints, as well as a bit of detail about the underlying reasons behind them.
 
 # How To Use The Guide
 
@@ -48,10 +44,10 @@ Then we recommend you return to the beginning with your real app codebase and th
 
 Modern codebases might already pass many of the verifications and take less than an hour to get running. Old code bases probably won't be so lucky, and could take a week of work to get into shape. Trust us, though, it's worth it for all the time you will save going forward!
 
-You do not need to go "all in" on any of the tools. Like most systems, an expert can swap out the various components. However you do need to understand all of the concepts to see how the later steps of the pipeline influence the earlier ones, all the way back to what you have to put in the codebase.
+You do not need to go "all in" on any of the tools. Like most systems, an expert can swap out the various components. However, you do need to understand all of the concepts to see how the later steps of the pipeline influence the earlier ones, all the way back to what you have to put in the codebase.
 
 # Background
 
-The guide and tools are informed by the hands-on experience the team and community at [Convox](https://convox.com) have gained by "Dockerizing" 1000s of apps and deploying them to the AWS EC2 Container Service. Much of that experience is in turn based on years of hands-on experience working on and using the [Heroku](https://heroku.com) platform.
+The guide and tools are informed by the hands-on experience the team and community at [Convox](https://convox.com) have gained by "Dockerizing" thousands of apps and deploying them to the AWS EC2 Container Service. Much of that experience is in turn based on years of hands-on experience working on and using the [Heroku](https://heroku.com) platform.
 
 Now that we we understand the goals, let's take a look at the [five phases of software delivery](/guide/overview/).

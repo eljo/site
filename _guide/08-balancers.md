@@ -4,11 +4,11 @@ permalink: /guide/balancers/
 phase: run
 ---
 
-A Balancer is a stable network endpoint that distributes traffic to the individual Containers of a Service.
+A balancer is a stable network endpoint that distributes traffic to the individual containers of a service.
 
-Using a Balancer enables you to interact with a Service over the network without knowledge of the Service's Containers or the host on which they are running.
+Using a balancer enables you to interact with a service over the network without knowledge of the service's containers or the host they're running on.
 
-A Balancer is defined with the `ports:` section of `docker-compose.yml`.
+A balancer is defined with the `ports:` section of `docker-compose.yml`.
 
 <pre class="file yaml" title="docker-compose.yml">
 <span class="diff-u">version: '2'</span>
@@ -25,11 +25,11 @@ A Balancer is defined with the `ports:` section of `docker-compose.yml`.
 <span class="diff-u">     - GITHUB_API_TOKEN</span>
 </pre>
 
-An Internet Balancer is defined by a pair of external and internal ports, e.g. `80:8000`. The Balancer will listen to the internet on port `80` and forward requests to app Containers that are bound to port `8000`.
+A published balancer is defined by a pair of external and internal ports in the format `<host port>:<container port>`, e.g. `80:8000`. On the host, the balancer will listen on port `80` and forward requests to app containers on port `8000`.
 
-An Internal Balancer is defined by a single port, e.g. `8000`. The Balancer will not listen to the internet, but will listen on port `8000` on the internal network and forward requests to app Containers that are bound to port `8000`.
+An _internal_ balancer is defined by a single port, e.g. `8000`. Here, port `8000` is _exposed_, but not _published_. The balancer will not listen for external requests on the host, but will listen on port `8000` on the internal network (i.e. from containers of other services defined in `docker-compose.yml`), and forward requests to fellow containers that are bound to port `8000`.
 
-Run `convox doctor` to validate your Balancer definitions:
+Run `convox doctor` to validate your balancer definitions:
 
 <pre class="terminal">
 <span class="command">convox doctor</span>

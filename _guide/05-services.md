@@ -4,7 +4,7 @@ permalink: /guide/services/
 phase: build
 ---
 
-A Service is a long-running component of your app, defined as a command run against an Image. An app is composed of one or more Services, e.g. web and worker.
+A Service is a long-running component of your app, defined as a command run against an image. An app is composed of one or more services, e.g. web and worker.
 
 Defining an app as a collection of Services enables independent horizontal scaling of each service.
 
@@ -21,9 +21,9 @@ services:
     command: ["node", "worker.js"]
 </pre>
 
-This `docker-compose.yml` specifies two Services. The `build` directives indicate that both services will use the Image you just built with the `Dockerfile` in the current directory. The `command` directives specify two different programs to run against that image.
+This `docker-compose.yml` specifies two services. The `build` directives indicate that both services will use the image you just built with the `Dockerfile` in the current directory. The `command` directives specify two different programs to run against that image.
 
-For a simple Node.js app these programs are an HTTP server with a Redis producer (web) and a long-running Redis consumer (worker):
+For a simple Node.js app these programs are an HTTP server (`node`) with a Redis producer (`web.js`) and a long-running Redis consumer (`worker.js`):
 
 <pre class="file js" title="web.js">
 var http = require("http");
@@ -64,19 +64,21 @@ client.on('connect', dequeue);
 console.log("worker running");
 </pre>
 
-Write a `docker-compose.yml` that specifies the Services that define your app.
+Write a `docker-compose.yml` that specifies the services that define your app, as in the example above.
 
-Run `convox doctor` to validate your Service definitions:
+Then, run `convox doctor` to validate your service definitions:
 
 <pre class="terminal">
 <span class="command">convox doctor</span>
 
 ### Build: Service
+
 [<span class="pass">✓</span>] docker-compose.yml found
 [<span class="pass">✓</span>] docker-compose.yml valid
 [<span class="pass">✓</span>] docker-compose.yml version 2
+[<span class="pass">✓</span>] Dockerfiles found
 [<span class="pass">✓</span>] Service <span class="service">web</span> is valid
 [<span class="pass">✓</span>] Service <span class="service">worker</span> is valid
 </pre>
 
-Now that you have defined Services, you can [use Environment to configure how the Services run](/guide/environment/).
+Now that you have defined your app's services, you can [define your environment to configure how the services run](/guide/environment/).
