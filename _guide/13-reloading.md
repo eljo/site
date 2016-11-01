@@ -1,16 +1,44 @@
 ---
-title: Reloading
+title: Convox Reloading for live code changes
 permalink: /guide/reloading/
 phase: develop
 ---
 
-Reloading is a technique to make a code change in development immediately available for testing.
+It's often useful to be able to make changes to your code and see the results immediately, rather than having to restart containers to see changes. This page describes our recommended best practice for doing so.
 
-We need Reloading to maintain development flow.
+Using containers as part of your development workflow can be tricky, especially when the code that you're working on has been baked into an image, which is by definition immutable.
 
-Reloading is particularly important for developing on Images. The Image has already been built with a version of the app code copied in. You need a way to quickly add changes from your text editor onto the Image. A Service is also already running. You also need a way to tell the Service to pick up the new changes, e.g. recompile or restart the web server.
+There are a few workarounds for this:
 
-Reloading is configured by adding an Environment aware "wrapper script" to an app. This script lets you run one command when an Environment variable indicates "development" mode, and another command in production. For a simple Node.js app we can use the `nodemon` reloading tool.
+## Bad: Rebuilding your image after making changes, then restarting containers
+
+This method is far too time-consuming in most cases.
+
+## Worse: Getting a shell in a container and modifying the code there
+
+This is a bad approach, because it requires installing development tools (such as a text editor) in the image, causing it to be larger than needed. You should almost never make changes inside a container.
+
+## Better: Bind-mounting app code as a volume in the container
+
+One way of getting around this is to bind-mount your app code directory as a volume with `docker run` or `docker-compose up`, but you still need a way to tell the service to pick up the new changes, such as by recompiling or restarting the web server. Furthermore, we only want this to happen in development, not in production.
+
+## Best: Developing locally with Convox
+
+Here's how you can take advantage of Convox's live reloading.
+
+Running `convox start` is similar to running `docker-compose up`, but one major difference is that Convox automatically monitors your code for changes and copies those files to the container immediately.
+
+This means you should *not* bind-mount any volumes in your `docker-compose.yml` in order for changes reflected immediately inside the container.
+
+## Configuring your app to reload in development
+
+Our recommended best practice for this is to use a simple, environment-aware "wrapper script" as the `command` or `entrypoint` for a service. When a container for that service is started, this wrapper script should execute the command that is appropriate for the environment it's in, e.g. production vs. development.
+
+To do so, the wrapper script should look at an environment variable, specified in your `.env` or exported in the environment of the host machine, to determine which command to execute.
+
+We recommend placing this file in a `bin/` directory in the same location as the corresponding `Dockerfile`, and naming it after the corresponding service (in our case, `web`).
+
+For instance: For a simple Node.js app we can execute the `nodemon` reloading tool in development, while executing `node` everywhere else.
 
 <pre class="file js" title="bin/web">
 #!/bin/bash
@@ -70,7 +98,7 @@ fi
 <span class="diff-u">      - 443:8000</span>
 <span class="diff-u">  worker:</span>
 <span class="diff-u">    build: .</span>
-<span class="diff-a">    command: ["bin/web"]</span>
+<span class="diff-a">    command: ["bin/worker"]</span>
 <span class="diff-u">    environment:</span>
 <span class="diff-u">      - GITHUB_API_TOKEN</span>
 <span class="diff-a">      - NODE_ENV=development</span>
@@ -83,7 +111,7 @@ fi
 <span class="diff-u">     - 6379</span>
 </pre>
 
-Now try to run your app. You can see that the `web` and `worker` Service are started with a new command that indicates Reloading is enabled.
+Now try to run your app. You can see that the `web` and `worker` services are started with a new command that indicates reloading is enabled.
 
 <pre class="terminal">
 <span class="command">convox start</span>
@@ -115,4 +143,4 @@ web    │ [nodemon] starting `node web.js`
 web    │ web running at http://127.0.0.1:8000/
 </pre>
 
-Now that we can make changes that quickly reload, lets [run our automated test command](/guide/one-offs/).
+Now that we can make changes that quickly reload, let's [run our automated test command](/guide/one-offs/).
