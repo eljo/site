@@ -4,11 +4,20 @@ permalink: /guide/balancers/
 phase: run
 ---
 
-A balancer is a stable network endpoint that distributes traffic to the individual containers of a service.
+## General Docker patterns
 
-Using a balancer enables you to interact with a service over the network without knowledge of the service's containers or the host they're running on.
+A common pattern when using Docker Compose is to declare a simple web frontend service. For example, this might mean a container based on the `nginx` base image (perhaps called `web`, `lb`, `www`, or the like), to which a simple `nginx.conf` file is added.
 
-A balancer is defined with the `ports:` section of `docker-compose.yml`.
+This nginx container then serves as a lightweight proxy or load balancer which passes web requests to the appropriate container using its service name, which in Compose resolves automatically to the internal IP of the corresponding container.
+
+In other words, in general terms and in the Docker world, a balancer is a stable network endpoint that distributes traffic to the individual containers of a service, enabling you to interact with a service over the network without knowledge of the service's containers' internal IPs or the host they're running on.
+
+
+## Convox Balancer
+
+We built Convox with the goal of ensuring maximum similarity between development and production. Apps deployed with Convox are automatically assigned their own Elastic Load Balancer in production. To emulate this behavior locally, Convox starts a local proxy container that emulates the production ELB.
+
+When you run `convox start`, this proxy container is automatically started and configured under the hood by looking at the `ports:` section of your `docker-compose.yml`:
 
 <pre class="file yaml" title="docker-compose.yml">
 <span class="diff-u">version: '2'</span>
@@ -25,9 +34,7 @@ A balancer is defined with the `ports:` section of `docker-compose.yml`.
 <span class="diff-u">     - GITHUB_API_TOKEN</span>
 </pre>
 
-A published balancer is defined by a pair of external and internal ports in the format `<host port>:<container port>`, e.g. `80:8000`. On the host, the balancer will listen on port `80` and forward requests to app containers on port `8000`.
-
-An _internal_ balancer is defined by a single port, e.g. `8000`. Here, port `8000` is _exposed_, but not _published_. The balancer will not listen for external requests on the host, but will listen on port `8000` on the internal network (i.e. from containers of other services defined in `docker-compose.yml`), and forward requests to fellow containers that are bound to port `8000`.
+The Convox balancer looks at your services' published ports and publishes those same ports itself instead, then automatically passes requests to those containers just as you would expect it to based on the contents of your `docker-compose.yml`. In this way, you're sure to get the same behavior when you run `convox deploy`, where a real ELB performs the same function.
 
 Run `convox doctor` to validate your balancer definitions:
 
@@ -39,4 +46,4 @@ Run `convox doctor` to validate your balancer definitions:
 [<span class="pass">✓</span>] Service <span class="service">web</span> has valid ports
 </pre>
 
-Now that you have defined Balancers, you can [add a Database](/guide/databases/).
+Now that you have defined Balancers, you can [add SSL](/guide/ssl/).
