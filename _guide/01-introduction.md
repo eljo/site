@@ -5,32 +5,13 @@ permalink: /guide/
 
 Welcome to the Convox Guide, a set of step-by-step instructions for developing, deploying and automating an app on the Convox platform.
 
-This guide is written for app developers who are ready to learn modern practices that make an app simple to develop on a laptop and effortless to manage in the cloud, using Convox.
+This guide is written for app developers who are ready to learn modern practices that make an app simple to develop locally and to deploy to the cloud.
 
-First, <a href="https://console.convox.com/grid/signup" target="_blank">sign up for Convox</a>. Later in the guide you will use the web console to set up your AWS environment.
+If you plan to follow along, you'll want to <a href="https://console.convox.com/grid/signup" target="_blank">sign up for Convox</a> and install the Convox Command Line Interface. The `convox` tool is all you need for your development environment.
 
-Next, install the Convox Command Line Interface. The `convox` tool is all you need for your development environment.
-
-## OS X
-
-```
-$ curl -Ls https://convox.com/install/osx.zip > /tmp/convox.zip
-$ unzip /tmp/convox.zip -d /usr/local/bin
-```
-
-## Linux
-
-```
-$ curl -Ls https://convox.com/install/linux.zip > /tmp/convox.zip
-$ unzip /tmp/convox.zip -d /usr/local/bin
-```
-
-Finally, register the CLI with Convox.
-
-```
-$ convox login
-Password: <Your Console API key>
-```
+<div class="block-callout block-show-callout type-info" markdown="1">
+If you're looking for a quicker overview of how to get started, or instructions for installing the Convox CLI, see [Getting Started](https://convox.com/docs/getting-started/) in the Convox documentation.
+</div>
 
 # Preface
 
