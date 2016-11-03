@@ -43,15 +43,7 @@ $ unzip /tmp/convox.zip -d /usr/local/bin
 
 Now run `convox doctor` to run the first checklist:
 
-```
-$ convox doctor
-
-### Setup
-[✓] Docker running
-[✓] Docker version >= 1.9
-[✓] Docker run hello-world works
-[✓] Convox CLI up to date
-```
+<script type="text/javascript" src="https://asciinema.org/a/91574.js" id="asciicast-91574" async></script>
 
 If you don't have Docker installed, `convox doctor` will point you to the [Installing Docker Guide](https://docs.docker.com/engine/installation/). If you can't run Docker's `hello-world` program, `convox doctor` will point you to the [Troubleshooting Docker Guide]().
 
