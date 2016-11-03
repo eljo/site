@@ -4,7 +4,7 @@ permalink: /guide/links/
 phase: run
 ---
 
-A link is an explicit connection between a service and another service or Convox resource.
+A _link_ is an explicit connection between a service and another service or Convox resource.
 
 Adding a link enables network discovery by injecting environment variables with the hostname of the service or resource that is linked to.
 

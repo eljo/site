@@ -4,7 +4,7 @@ permalink: /guide/images/
 phase: build
 ---
 
-An image is an immutable package containing your app and all of its dependencies, down to the operating system.
+An _image_ is an immutable package containing your app and all of its dependencies, down to the operating system.
 
 Using an image enables you to run your app predictably on any computer, from your laptop to the cloud.
 

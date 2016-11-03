@@ -6,41 +6,47 @@ phase: develop
 
 It's often useful to be able to make changes to your code and see the results immediately, rather than having to restart containers to see changes. This page describes our recommended best practice for doing so.
 
+<div class="block-callout block-show-callout type-info" markdown="1">
+
 Using containers as part of your development workflow can be tricky, especially when the code that you're working on has been baked into an image, which is by definition immutable.
 
 There are a few workarounds for this:
 
-## Bad: Rebuilding your image after making changes, then restarting containers
+### Bad: Rebuilding your image after making changes, then restarting containers
 
-This method is far too time-consuming in most cases: you shouldn't need to rebuild images every time you want to see the effects of the changes you're making. Don't do this.
+This method is far too time-consuming in most cases: you shouldn't need to rebuild images every time you want to see the effects of the changes you're making.
 
-## Worse: Getting a shell in a container and modifying the code there
+### Worse: Getting a shell in a container and modifying the code there
 
-This is a Very Bad Idea. Why? Containers should be considered ephemeral and immutable. Making changes inside a container would require installing development tools (such as a text editor) in the image, causing it to be unnecessarily bloated. Don't do this.
+As a general rule, this is a Very Bad Idea. Containers should be considered ephemeral and immutable. Making changes inside a container would require installing development tools (such as a text editor) in the image, causing it to be unnecessarily bloated.
 
-## Better: Bind-mounting app code directory as a volume in the container
+### Better: Bind-mounting app code directory as a volume in the container
 
-One way of getting around this is to bind-mount your app code directory as a volume with `docker run` or `docker-compose up`.
+One way of getting around this issue is to bind-mount your app code directory as a volume with `docker run` or `docker-compose up`.
 
 This may work in some cases, depending on the app, but most of the time, you still need a way to tell the service to pick up the new changes, such as by recompiling or restarting the web server.
 
+Since many application servers don't notice code changes on the fly until being restarted, a common workaround is to use a drop-in replacement (such as `nodemon` as a replacement for `node`) in development. But we don't want to use those in production for performance and security reasons.
+
 Furthermore, we would only want to mount such volumes in development, not in production.
 
-## Best: Developing locally with Convox
+</div>
+
+## Developing locally with Convox
 
 Convox was built with the development workflow in mind, with respect to the need for maximum parity between development and production environments.
 
-Your app should be structured in a way that allows developers to take advantage of Convox's live reloading features locally, while ensuring proper production behavior, with minimal changes needed.
+Your app should be structured in a way that allows you to take advantage of Convox's live reloading features during local development, while ensuring proper production behavior when deployed, with minimal changes needed.
 
 Running `convox start` is similar to running `docker-compose build && docker-compose up`, but one major difference is that Convox automatically monitors your code for changes and copies those files to the container immediately.
 
+<div class="block-callout block-show-callout type-warning" markdown="1">
 This means you should *not* bind-mount any volumes in your `docker-compose.yml` in order for changes reflected immediately inside the container, as Convox takes care of this for you. (Note: you can disable this behavior with `convox start --no-sync`.)
+</div>
 
 ## Configuring your app to reload in development
 
-Most application servers don't notice code changes on the fly until being restarted. A common workaround is to use a drop-in replacement (such as `nodemon` as a replacement for `node`) in development.
-
-Our recommended best practice for this is to use a simple, environment-aware "wrapper script" as the `command` or `entrypoint` for a service. When a container for that service is started, this wrapper script should execute the command that is most appropriate for the environment it's in, e.g. production vs. development.
+Our recommended best practice is to use a simple, environment-aware "wrapper script" as the `command` or `entrypoint` for a service. When a container for that service is started, this wrapper script should execute the command that is most appropriate for the environment it's in, e.g. production vs. development.
 
 To do so, the wrapper script should look at an environment variable, specified in your `.env` or exported in the environment of the host machine, to determine which command to execute.
 
@@ -150,5 +156,9 @@ web    │ [nodemon] restarting due to changes...
 web    │ [nodemon] starting `node web.js`
 web    │ web running at http://127.0.0.1:8000/
 </pre>
+
+Now, when you run `convox deploy`, the `command` used will be `node` and not `nodemon`, since the `NODE_ENV` variable won't be set to `DEVELOPMENT` on the production server.
+
+In this way, you can have an ideal local environment for development and a proper deployment environment for production, without needing to make any manual modifications.
 
 Now that we can make changes that quickly reload, let's [run our automated test command](/guide/one-offs/).

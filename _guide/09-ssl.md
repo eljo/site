@@ -28,7 +28,7 @@ To set up HTTPS, publish port 443 and add the label `convox.port.443.protocol=ht
 <span class="diff-u">      - GITHUB_API_TOKEN</span>
 </pre>
 
-The balancer will now listen for external HTTPS traffic on port 443, secure these connections using a self-signed cert, and forward requests to containers of the `web` service which have exposed port 8000.
+The Convox balancer will now listen for external HTTPS traffic on port 443, secure these connections using a self-signed cert, and forward requests to containers of the `web` service which have exposed port 8000.
 
 Run `convox doctor` to validate your port protocol label and balancer definitions:
 

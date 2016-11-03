@@ -5,7 +5,7 @@ permalink: /guide/
 
 Welcome to the Convox Guide, a set of step-by-step instructions for developing, deploying and automating an app on the Convox platform.
 
-This guide is written for app developers who are ready to learn modern practices that make an app simple to develop on a laptop and effortless to manage in the cloud.
+This guide is written for app developers who are ready to learn modern practices that make an app simple to develop on a laptop and effortless to manage in the cloud, using Convox.
 
 First, <a href="https://console.convox.com/grid/signup" target="_blank">sign up for Convox</a>. Later in the guide you will use the web console to set up your AWS environment.
 
@@ -34,7 +34,7 @@ Password: <Your Console API key>
 
 # Preface
 
-The goal is simple: take any app, develop a change on your laptop, ship the change to production, and watch it run forever.
+The goal is simple: take any app, make a change on your development machine, ship the change to production, and watch it run forever.
 
 The tools are common: your git repo, a text editor, config files, scripts, and cloud services.
 

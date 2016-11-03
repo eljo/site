@@ -4,7 +4,7 @@ permalink: /guide/one-offs/
 phase: develop
 ---
 
-One-Off commands (roughly analogous to `docker run --entrypoint <command>` or `docker-compose run`) let you interact with your app and its tooling during local development.
+_One-Off commands_ (roughly analogous to `docker run --entrypoint <command>` or `docker-compose run`) let you interact with your app and its tooling during local development.
 
 One-Offs are useful for running tests, migrations, debugging consoles, or other administrative tasks.
 

@@ -4,7 +4,7 @@ permalink: /guide/environment/
 phase: build
 ---
 
-Environment is a set of configuration values for Services.
+The _environment_ is a set of configuration values for services.
 
 Extracting configuration out of your app code and into the environment enables you to use the same image in development, staging and production.
 
@@ -42,11 +42,11 @@ These are sensitive secrets and should be ignored by Docker and Git:
 <span class="diff-a">.env</span>
 </pre>
 
-The sample Node.js app can reference this configuration via `process.env.GITHUB_API_TOKEN` in your code. This enables you to use a personal GitHub token on your laptop and a company GitHub token in production, without ever having to rebuild the Image.
+The sample Node.js app can reference this configuration via `process.env.GITHUB_API_TOKEN` in your code. This enables you to use a personal GitHub token on your development machine and a company GitHub token in production, without ever having to rebuild the image.
 
 Add the list of environment variables your app uses to `docker-compose.yml`. Create your `.env` file with default development values, and make sure to never include this file in the git repository or image.
 
-Run `convox doctor` to validate the Environment:
+Run `convox doctor` to validate the environment:
 
 <pre class="terminal">
 <span class="command">convox doctor</span>

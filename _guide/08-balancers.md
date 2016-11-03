@@ -4,13 +4,17 @@ permalink: /guide/balancers/
 phase: run
 ---
 
-## General Docker patterns
+A _balancer_ is a stable network endpoint that distributes traffic to the individual containers of a service.
+
+<div class="block-callout block-show-callout type-info" markdown="1">
+### General Docker patterns
 
 A common pattern when using Docker Compose is to declare a simple web frontend service. For example, this might mean a container based on the `nginx` base image (perhaps called `web`, `lb`, `www`, or the like), to which a simple `nginx.conf` file is added.
 
 This NGINX container then serves as a lightweight proxy or load balancer which passes web requests to the appropriate container using its service name, which in Compose resolves automatically to the internal IP of the corresponding container.
 
 In other words, in general terms and in the Docker world, a balancer is a stable network endpoint that distributes traffic to the individual containers of a service, enabling you to interact with a service over the network without knowledge of the service's containers' internal IPs or the host they're running on.
+</div>
 
 
 ## Convox Balancer
@@ -33,6 +37,10 @@ When you run `convox start`, this proxy container is automatically started and c
 <span class="diff-u">    environment:</span>
 <span class="diff-u">     - GITHUB_API_TOKEN</span>
 </pre>
+
+An _internet_ balancer is defined by a pair of external and internal ports, e.g. `80:8000`. The balancer will listen to the internet on port `80` and forward requests to app containers that are bound to port `8000`.
+
+An _internal_ balancer is defined by a single port, e.g. `8000`. The balancer will not listen to the internet, but will listen on port `8000` on the internal network and forward requests to app containers that are bound to port `8000`.
 
 The Convox balancer looks at your services' published ports and publishes those same ports itself instead, then automatically passes requests to those containers just as you would expect it to based on the contents of your `docker-compose.yml`. In this way, you're sure to get the same behavior when you run `convox deploy`, where a real ELB performs the same function.
 

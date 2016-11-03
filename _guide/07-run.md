@@ -5,10 +5,10 @@ permalink: /guide/run/
 
 You just built an image that is designed to run anywhere. The next goals are to:
 
-* Run your app on your laptop with a single command
+* Run your app on your development machine with a single command
 * Respond to network requests
 
-Give it a try!
+Let's see what happens when we try to run our app for the first time with `convox start`:
 
 <pre class="terminal">
 <span class="command">convox start</span>

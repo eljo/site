@@ -4,26 +4,26 @@ permalink: /guide/services/
 phase: build
 ---
 
-A Service is a long-running component of your app, defined as a command run against an image. An app is composed of one or more services, e.g. web and worker.
+A _service_ is a component of your app, defined as a command run against an image. An app is composed of one or more services, e.g. `web` and `worker`, as in the example below.
 
-Defining an app as a collection of Services enables independent horizontal scaling of each service.
+Defining an app as a collection of services enables independent horizontal scaling of each service.
 
-A Service is defined in the `services:` section of `docker-compose.yml`.
+A service is defined in the `services:` section of `docker-compose.yml`.
 
 <pre class="file yaml" title="docker-compose.yml">
 version: '2'
 services:
+  # Redis producer
   web:
     build: .
     command: ["node", "web.js"]
+  # Long-running Redis consumer
   worker:
     build: .
     command: ["node", "worker.js"]
 </pre>
 
-This `docker-compose.yml` specifies two services. The `build` directives indicate that both services will use the image you just built with the `Dockerfile` in the current directory. The `command` directives specify two different programs to run against that image.
-
-For a simple Node.js app these programs are an HTTP server (`node`) with a Redis producer (`web.js`) and a long-running Redis consumer (`worker.js`):
+This `docker-compose.yml` specifies two services, `web` and `worker`. The `build` directives indicate that both services will use the same image--the one based on the `Dockerfile` in the current directory (`.`). The `command` directives specify the program to run against that image (the `node` HTTP server, in both cases).
 
 <pre class="file js" title="web.js">
 var http = require("http");
@@ -64,7 +64,7 @@ client.on('connect', dequeue);
 console.log("worker running");
 </pre>
 
-Write a `docker-compose.yml` that specifies the services that define your app, as in the example above.
+If you haven't already, write a `docker-compose.yml` that specifies the services that define your app, as in the example above.
 
 Then, run `convox doctor` to validate your service definitions:
 
