@@ -6,7 +6,7 @@ phase: run
 
 A link is an explicit connection between a service and another service or Convox resource.
 
-Adding a link enables network discovery by injecting environment varibles with the hostname of the service or resource that is linked to.
+Adding a link enables network discovery by injecting environment variables with the hostname of the service or resource that is linked to.
 
 A link is defined in the `links:` and `environment:` sections of `docker-compose.yml`. The `links:` section defines the relationship. In a simple Node.js app both the `web` and `worker` services link to the `redis` resource. Now in the development or production environment, Convox will inject the hostname and port of the `redis` resource into the `web` and `worker` environments as `REDIS_URL`.
 

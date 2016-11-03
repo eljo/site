@@ -8,7 +8,7 @@ phase: run
 
 A common pattern when using Docker Compose is to declare a simple web frontend service. For example, this might mean a container based on the `nginx` base image (perhaps called `web`, `lb`, `www`, or the like), to which a simple `nginx.conf` file is added.
 
-This nginx container then serves as a lightweight proxy or load balancer which passes web requests to the appropriate container using its service name, which in Compose resolves automatically to the internal IP of the corresponding container.
+This NGINX container then serves as a lightweight proxy or load balancer which passes web requests to the appropriate container using its service name, which in Compose resolves automatically to the internal IP of the corresponding container.
 
 In other words, in general terms and in the Docker world, a balancer is a stable network endpoint that distributes traffic to the individual containers of a service, enabling you to interact with a service over the network without knowledge of the service's containers' internal IPs or the host they're running on.
 
