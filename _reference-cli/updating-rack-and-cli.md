@@ -1,0 +1,1 @@
+../_management/updating-rack-and-cli.md

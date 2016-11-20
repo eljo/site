@@ -44,6 +44,10 @@ collections:
     title: Console
     output: true
     permalink: /docs/:name/
+  reference-cli:
+    title: CLI Reference
+    output: true
+    permalink: /docs/cli
   reference:
     title: Reference
     output: true
