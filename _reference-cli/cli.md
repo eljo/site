@@ -1,5 +1,6 @@
 ---
 title: "CLI"
+order: 200
 ---
 
 ## Install the CLI
@@ -182,4 +183,3 @@ or
 
     PS1+="[$(__convox_switch)] "
     export PS1
-
