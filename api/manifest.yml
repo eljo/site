@@ -1091,6 +1091,11 @@ paths:
     put:
       description: Update system information
       parameters:
+      - name: rack
+        description: rack name
+        type: string
+        in: header
+        required: false
       - name: count
         description: instance count
         type: integer
