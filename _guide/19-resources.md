@@ -100,4 +100,7 @@ For more information on resources, see:
 
 {% include definitions/changes/service-to-resource.md %}
 
-Up next: [Automation](/guide/automate/)!
+{% include_relative _includes/next.html
+  next="Monitor your app"
+  next_url="/guide/monitor/"
+%}
