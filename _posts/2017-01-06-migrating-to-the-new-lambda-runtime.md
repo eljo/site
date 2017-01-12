@@ -2,6 +2,9 @@
 title: Migrating to the New Lambda Runtime
 author: Matt Manning
 twitter: mattmanning
+category: Postmortem
+tags: [Lambda, AWS, post mortem]
+
 ---
 
 **tl;dr:** If you’re having trouble creating apps or resources, upgrade your CLI and Rack to the latest versions. **Please note that you will not be able to roll back to a previous Rack release older than `20170106053301` after updating.**

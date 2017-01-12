@@ -29,7 +29,12 @@
   </section>
   {% endif %}
 
+
   <section class="col-xs-12">
+    <div tags>
+      <b>Tags:</b> {{ include.post.tags | tags: "Convox" }}
+      <hr>
+    </div>
     <div>
       {% if include.excerpt %}
         {{ include.post.excerpt }}
