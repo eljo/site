@@ -64,15 +64,25 @@ Because [VPCs cannot be resized](http://docs.aws.amazon.com/AmazonVPC/latest/Use
 
 ## Installing a private Rack into an existing VPC
 
-Installing a private Rack into an existing VPC requires specifying a couple more options. You'll need to pass the `--private` option to `convox install` as well as a set of CIDRS for three private subnets using the `--private-cidrs` option. For example:
+Installing a private Rack into an existing VPC requires specifying a couple more options.
 
-    convox install \
-      --private \
-      --existing-vpc "vpc-abcd1234" \
-      --vpc-cidr "10.0.0.0/16" \
-      --subnet-cidrs "10.0.1.0/24,10.0.2.0/24,10.0.3.0/24" \
-      --private-cidrs "10.0.4.0/24,10.0.5.0/24,10.0.6.0/24" \
-      --internet-gateway "igw-abcd1234"
+
+{% include expandable.html 
+    label="Show CLI install instructions"
+    content='
+Note: this method is not recommended.
+You\'ll need to pass the <code class="highlighter-rouge">--private</code> option to <code class="highlighter-rouge">convox install</code> as well as a set of CIDRS for three private subnets using the <code class="highlighter-rouge">--private-cidrs</code> option. For example:
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>convox install \ 
+    --private \ 
+    --existing-vpc "vpc-abcd1234" \ 
+    --vpc-cidr "10.0.0.0/16" \ 
+    --subnet-cidrs "10.0.1.0/24,10.0.2.0/24,10.0.3.0/24" \ 
+    --private-cidrs "10.0.4.0/24,10.0.5.0/24,10.0.6.0/24" \ 
+    --internet-gateway "igw-abcd1234"</code></pre></div>'
+%}
+
 
 Keep in mind that you will need to create six /24 CIDR block subnets: three public, and three private.
 
@@ -103,3 +113,4 @@ Because VPC peering is limited to VPCs in the same region, you'll need to take a
 When AWS [released VPC Peering](https://aws.amazon.com/blogs/aws/new-vpc-peering-for-the-amazon-virtual-private-cloud/) in 2014, it expressed an intent to build cross-region peering in the future (see excerpt below), so keep an eye out for first-class support in AWS one of these days.
 
 > You can connect any two VPCs that are in the same AWS Region, regardless of ownership, as long as both parties agree. We plan to extend this feature to support cross-Region peering in the future. 
+
