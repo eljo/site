@@ -4,7 +4,7 @@ author: Ian Malott
 twitter: ianmalott
 ---
 
-Most Convox customers deploy apps that they develop in-house. A team of developers iterates rapidly on new features and fixes, and they deploy that code multiple times a week, if not multiple times a day. This means building images frequently. When using Convox in this fashion, it's easy to lose sight of one of the delightful benefits of an image-based platform like Convox: the ease of deploying apps _other teams_ are developing, using images that have already been built.
+Most Convox users deploy apps that they develop in-house. A team of developers iterates rapidly on new features and fixes, and they deploy that code multiple times a week, if not multiple times a day. This means building images frequently. When using Convox in this fashion, it's easy to lose sight of one of the delightful benefits of an image-based platform like Convox: the ease of deploying apps _other teams_ are developing, using images that have already been built.
 
 <!--more-->
 
@@ -33,13 +33,15 @@ To visit your Bitbucket Server app, run `convox apps info bitbucket-server` and 
 
 ## Why was that so easy?
 
-Had you deployed the codebase of an app instead of an image, you'd have needed more configuration, and the deployment itself would have involved a build step to create an image before running it. In this case, Atlassian has done all of the hard work by providing a ready-to-go Docker image: [atlassian/bitbucket-server](https://hub.docker.com/r/atlassian/bitbucket-server/). You simply declare the image in your docker-compose.yml, allocate an appropriate amount of memory for the app, and tell Convox to forward internet traffic on port 80 to port 7990 of the `web` service running the app (see `EXPOSE 7990` in the image's Dockerfile).
+Had you deployed the codebase of an app instead of an image, you'd have needed more configuration, and the deployment itself would have involved a build step to create an image before running it. In this case, Atlassian has done all of the hard work by providing a ready-to-go Docker image: [atlassian/bitbucket-server](https://hub.docker.com/r/atlassian/bitbucket-server/). You simply declare the image in your docker-compose.yml, allocate an appropriate amount of memory for the app, and tell Convox to forward internet traffic on port 80 to port 7990 of the `web` service (see `EXPOSE 7990` in the image's Dockerfile).
 
 ## What if I don't have a Convox Rack?
 
-If you haven't used Convox before, then this demo might feel out of reach. The good news is that you can set up a Rack in about 20 minutes by signing up for a Convox account at console.convox.com and then following our checklist to integrate with an AWS account and install a Rack. If you've never run software on AWS before, this would be a great first experience, as Convox takes care of creating dozens of resources and configuring them for a convenient experience.
+If you haven't used Convox before, then this demo might feel out of reach. The good news is that you can set up a Rack in about 20 minutes by signing up for a Convox account at [console.convox.com](https://console.convox.com) and then following our welcome checklist. It steps you through integrating with an AWS account and installing a Rack.
 
-If you're still hoping for more of a five-minute demo, you're in luck. You can get a glimpse of how powerful images can be--without an AWS account--by running Bitbucket Server locally with `convox start`. Just follow these steps:
+If you've never run software on AWS before, this would be a great way to try it out. Convox takes care of creating dozens of resources and configuring them for a convenient experience.
+
+If you're still hoping for a five-minute demo, you're in luck. You can get a glimpse of how powerful images can be--without an AWS account--by running Bitbucket Server locally with `convox start`. Just follow these steps:
 
 1. [Install the Convox CLI](https://convox.com/docs/installation/).
 2. Create a new directory called 'bitbucket-server'.
