@@ -20,13 +20,14 @@ We'd like to share an example of deploying just such an app--one with extensive 
     services:
       web:
         image: atlassian/bitbucket-server
+        mem_limit: 1024MB
         ports:
           - 80:7990</pre>
 3. Run `convox apps create bitbucket-server` to prepare a new app.
-4. Run `convox scale --memory=1024` to allocate more than the default 256MB.
-5. Run `convox deploy` and wait for the app to boot.
+4. Run `convox deploy` to create and promote a new release for that app.
+5. Wait for the status in `convox apps` to change from _updating_ to _running_.
 
-To visit your Bitbucket Server app, run `convox apps info bitbucket-server` and visit the URL listed next to "Endpoints." You should see a Bitbucket starting up screen like this:
+To visit your Bitbucket Server app, run `convox apps info bitbucket-server` and visit the URL listed next to "Endpoints." You should see a Bitbucket "starting up" screen like this:
 
 ![Bitbucket starting up screenshot](/assets/images/bitbucket-starting-up.png)
 
