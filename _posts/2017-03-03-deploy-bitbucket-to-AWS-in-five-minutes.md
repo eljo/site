@@ -33,7 +33,7 @@ To visit your Bitbucket Server app, run `convox apps info bitbucket-server` and 
 
 ## Why was that so easy?
 
-Had you deployed the codebase of an app instead of an image, you'd have needed more configuration, and the deployment itself would have involved a build step to create an image before running it. In this case, Atlassian has done all of the hard work by providing a ready-to-go Docker image: [atlassian/bitbucket-server](https://hub.docker.com/r/atlassian/bitbucket-server/). You simply declare the image in your docker-compose.yml and tell Convox to forward internet traffic on port 80 to port 7990 of the `web` service running the app (see `EXPOSE 7990` in the image's Dockerfile).
+Had you deployed the codebase of an app instead of an image, you'd have needed more configuration, and the deployment itself would have involved a build step to create an image before running it. In this case, Atlassian has done all of the hard work by providing a ready-to-go Docker image: [atlassian/bitbucket-server](https://hub.docker.com/r/atlassian/bitbucket-server/). You simply declare the image in your docker-compose.yml, allocate an appropriate amount of memory for the app, and tell Convox to forward internet traffic on port 80 to port 7990 of the `web` service running the app (see `EXPOSE 7990` in the image's Dockerfile).
 
 ## What if I don't have a Convox Rack?
 
