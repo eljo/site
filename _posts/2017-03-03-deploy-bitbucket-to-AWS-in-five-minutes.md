@@ -59,4 +59,4 @@ To interact with your BitBucket Server app, visit _http://localhost_ in your bro
 
 ## The takeaway
 
-When you consider the [alternative installation approaches](https://confluence.atlassian.com/bitbucketserver/bitbucket-server-installation-guide-867338382.html), the ease of using image-based deployments for apps like Bitbucket Server become more apparent. And [19-page Quick Start guides](https://s3.amazonaws.com/quickstart-reference/atlassian/bitbucket/latest/doc/bitbucket-data-center-on-the-aws-cloud.pdf) are a good reminder of just how complicated it can still be to get software running on AWS on your own.
+This exercise is a good reminder that builds can be decoupled from deployments. It also hints at how using images can lead to more streamlined workflows, and faster, less error-prone deployments. Convox layers this functionality on top of AWS to provide an ideal pairing of convenience and power.
