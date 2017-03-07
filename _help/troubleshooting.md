@@ -19,3 +19,7 @@ Run `convox apps info` to find the load balancer endpoints for your application.
 Run `convox ps` to determine if your application is booting successfully.
 
 Run `convox logs` to inspect your application logs and cluster events for problems placing your container, starting your app, or registering with the load balancer.
+
+## My app deployed but immediately exits and rolls back
+
+If your application rolls back for apparently no reason (i.e. no error is given on a `convox deploy`) check your CloudFormation events for details -- it might be a simple typo in your convox.cron expression.
